@@ -1,14 +1,17 @@
 import React, { Fragment } from "react";
-import {View, Text, ScrollView,TouchableOpacity} from "react-native";
+import {View, Text, ScrollView,TouchableOpacity, FlatList} from "react-native";
 import styles from "./styles";
+import QuotationItem from "./QuotationItem";
 
-export default function QuotaionList(){
+export default function QuotaionList(props){
+    const dayQuery = props.filterDay
+
     return(
         <Fragment>
         <View style={styles.filters}>
             <TouchableOpacity
                 style={styles.buttonQuery}
-                onPress={() =>{}}
+                onPress={() =>dayQuery(7)}
             >
                 <Text style={styles.textButtonQuery}>
                     7D
@@ -16,7 +19,7 @@ export default function QuotaionList(){
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.buttonQuery}
-                onPress={() =>{}}
+                onPress={() =>dayQuery(15)}
             >
                 <Text style={styles.textButtonQuery}>
                     15D
@@ -24,7 +27,7 @@ export default function QuotaionList(){
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.buttonQuery}
-                onPress={() =>{}}
+                onPress={() =>dayQuery(30)}
             >
                 <Text style={styles.textButtonQuery}>
                     1M
@@ -32,7 +35,7 @@ export default function QuotaionList(){
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.buttonQuery}
-                onPress={() =>{}}
+                onPress={() =>dayQuery(90)}
             >
                 <Text style={styles.textButtonQuery}>
                     3M
@@ -40,7 +43,7 @@ export default function QuotaionList(){
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.buttonQuery}
-                onPress={() =>{}}
+                onPress={() =>dayQuery(180)}
             >
                 <Text style={styles.textButtonQuery}>
                     6M
@@ -48,6 +51,15 @@ export default function QuotaionList(){
             </TouchableOpacity>
             
         </View>
+        <ScrollView>
+            <FlatList
+                data={props.listTransactions}
+                renderItem={({item})=>{
+                    return <QuotationItem valor={item.valor} data={item.data}/>
+                }}
+                scrollEnabled={false}
+            />
+        </ScrollView>
         
         </Fragment>
     )
